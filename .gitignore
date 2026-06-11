@@ -1,24 +1,14 @@
-# ===================================================================
-# SimplyBank Ultimate — .gitignore
-# Spring Boot 4 / Java 21 / Maven
-# ===================================================================
-
-# --- Build output (Maven) ---
+# --- Build output ---
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# --- Compiled class files & packaged artifacts ---
-*.class
-*.jar
-*.war
-*.ear
-# ...but never ignore the Maven wrapper jar (already excepted above)
-
-# --- Secrets & local configuration (CRITICAL — see note below) ---
+# --- Secrets & local config (CRITICAL: .env ignored, .env.example committed) ---
 .env
 .env.*
 !.env.example
-*.local.properties
 application-local.properties
 application-local.yml
 secrets/
@@ -28,63 +18,46 @@ logs/
 *.log
 spring.log
 
-# --- IntelliJ IDEA ---
-.idea/
-*.iml
-*.iws
-*.ipr
-out/
-
-# --- VS Code ---
-.vscode/
-!.vscode/extensions.json
-
-# --- Eclipse / STS ---
+### STS ###
+.apt_generated
 .classpath
-.project
-.settings/
 .factorypath
+.project
+.settings
 .springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
 
 # --- OS junk ---
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# --- Claude Code local settings (keep shared config, ignore personal) ---
+# --- Claude Code personal settings ---
 .claude/settings.local.json
-
-# --- Test & coverage reports ---
-.surefire-reports/
-jacoco.exec
-*.exec
 
 # --- Docker local overrides ---
 docker-compose.override.yml
 
-# --- JVM crash dumps ---
-hs_err_pid*
-replay_pid*
+# --- Test & coverage ---
+.surefire-reports/
+jacoco.exec
 *.hprof
-
-# ===================================================================
-# NOTES
-#
-# 1) SECRETS: `.env` is ignored, `.env.example` is NOT. The example
-#    file (committed) lists the variable NAMES with dummy values so
-#    anyone can see what config the app needs; the real `.env` with
-#    actual passwords/JWT secret stays on your machine only. This is
-#    decision D-secrets from the plan: nothing sensitive in the repo.
-#
-# 2) MAVEN WRAPPER: `mvnw`, `mvnw.cmd`, and `.mvn/` ARE committed —
-#    they let anyone (and the CI runner) build without installing
-#    Maven. Only the bulky `target/` build output is ignored.
-#
-# 3) IDE FILES: ignored entirely. Your IDE config is personal;
-#    committing it creates noise in every diff and conflicts between
-#    teammates' setups. The project builds from pom.xml alone.
-#
-# 4) Flyway migrations (src/main/resources/db/migration/) are NOT
-#    ignored — they are source code. Mentioned because people
-#    sometimes reflexively ignore .sql files. Don't.
-# ===================================================================
+hs_err_pid*
